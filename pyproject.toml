@@ -1,0 +1,19 @@
+[project]
+name = "camera-calibration-uv"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Simon Thimm", email = "2023463@stud.hs-mannheim.de" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "opencv-python>=4.12.0.88",
+]
+
+[project.scripts]
+camera-calibration-uv = "camera_calibration_uv:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
