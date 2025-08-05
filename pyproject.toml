@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [project.scripts]
-camera-calibration-uv = "camera_calibration_uv:main"
+calibrate = "camera_calibration_uv:calibrate"
 
 [build-system]
 requires = ["hatchling"]

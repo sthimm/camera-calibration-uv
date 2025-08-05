@@ -1,0 +1,11 @@
+boards:
+  charuco_6x9:
+    _type_: charuco
+    size: [6, 9]
+    aruco_dict: 4X4_1000
+
+    square_length: 0.065
+    marker_length: 0.055
+    
+    min_rows: 3
+    min_points: 20 

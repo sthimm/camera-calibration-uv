@@ -3,12 +3,12 @@ import os
 import cv2
 
 def main(args): 
-    cam = cv2.VideoCapture(0)
-    if not cam.isOpened(): 
-        raise ValueError("Failed to open camera")
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened(): 
+        raise ValueError('Failed to open camera')
     
-    width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
     os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -17,22 +17,23 @@ def main(args):
     num_frames = 0 
     max_frames = args.fps * args.duration if args.duration is not None else float('inf')
 
-    while cam.isOpened() and num_frames < max_frames: 
-        ret, frame = cam.read() 
+    while cap.isOpened() and num_frames < max_frames: 
+        ret, frame = cap.read() 
         if not ret: 
             print('Failed to capture frame')
             break
 
         writer.write(frame)
         cv2.imshow('Camera', frame)
+        num_frames += 1 
 
-        if cv2.waitKey(1) == ord('q'): 
+        if cv2.waitKey(1) & 0xFF == ord('q'): 
+            print('Stopped recording')
             break
 
-    cam.release() 
+    cap.release() 
     writer.release() 
     cv2.destroyAllWindows() 
-    print(f'Saved video file to {args.output_path}')
 
 if __name__ == '__main__': 
     parser = argparse.ArgumentParser() 
