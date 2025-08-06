@@ -24,7 +24,7 @@ def main(args):
             break
 
         writer.write(frame)
-        cv2.imshow('Camera', frame)
+        cv2.imshow('Camera', cv2.flip(frame, 1))
         num_frames += 1 
 
         if cv2.waitKey(1) & 0xFF == ord('q'): 
