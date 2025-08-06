@@ -208,3 +208,4 @@ __marimo__/
 
 # Calibration data and results
 *.mp4
+*.json
