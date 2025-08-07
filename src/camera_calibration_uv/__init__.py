@@ -14,8 +14,8 @@ https://github.com/opencv/opencv/blob/4.x/samples/python/calibrate.py
 def create_board(yaml_path: str) -> cv2.aruco.CharucoBoard:
     with open(yaml_path, 'r') as file:
         board_cfg = yaml.safe_load(file)
-    dict_name = getattr(cv2.aruco, board_cfg['aruco_dict'].upper())
-    aruco_dict = cv2.aruco.getPredefinedDictionary(dict_name)
+    aruco_dict_name = getattr(cv2.aruco, board_cfg['aruco_dict'].upper())
+    aruco_dict = cv2.aruco.getPredefinedDictionary(aruco_dict_name)
     board = cv2.aruco.CharucoBoard(
         size=tuple(board_cfg['size']),
         markerLength=board_cfg['marker_length'],
