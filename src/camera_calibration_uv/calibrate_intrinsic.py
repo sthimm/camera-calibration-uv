@@ -4,18 +4,7 @@ import os
 import yaml 
 import argparse
 
-def create_board(yaml_path: str) -> cv2.aruco.CharucoBoard:
-    with open(yaml_path, 'r') as file:
-        board_cfg = yaml.safe_load(file)
-    aruco_dict_name = getattr(cv2.aruco, board_cfg['aruco_dict'].upper())
-    aruco_dict = cv2.aruco.getPredefinedDictionary(aruco_dict_name)
-    board = cv2.aruco.CharucoBoard(
-        size=tuple(board_cfg['size']),
-        markerLength=board_cfg['marker_length'],
-        squareLength=board_cfg['square_length'],
-        dictionary=aruco_dict
-    )
-    return board
+from .charuco_utils import create_board
 
 def calibrate_intrinsic(args):
     """
@@ -102,7 +91,7 @@ def main():
     parser = argparse.ArgumentParser() 
     parser.add_argument('--video', type=str, default='output/output.mp4', help='Path to video file')
     parser.add_argument('--output-path', type=str, default='output/intrinsics.json', help='Path to output dir')
-    parser.add_argument('--board', type=str, default='example_boards/charuco_5x7.yaml', help='YAML File describing charuco board')
+    parser.add_argument('--board', type=str, default='example_boards/charuco_5x7_A4.yaml', help='YAML File describing charuco board')
     parser.add_argument('--step-size', type=int, default=1, help='Use every n-th frame of video')
     parser.add_argument('--min-corners', type=int, default=4, help='Minimum number of detected corners')
     parser.add_argument('--wait-time', type=int, default=1, help='Time to wait between frames in milliseconds')

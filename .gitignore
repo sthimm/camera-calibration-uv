@@ -209,3 +209,10 @@ __marimo__/
 # Calibration data and results
 *.mp4
 *.json
+*.jpg
+*.jpeg
+*.png
+*.yaml
+*.yml
+!example_boards/charuco_5x7_A0.yaml 
+!example_boards/charuco_5x7_A4.yaml

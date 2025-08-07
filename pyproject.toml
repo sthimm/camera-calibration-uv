@@ -13,6 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
+print_board = "camera_calibration_uv.print_board:main"
 capture_video = "camera_calibration_uv.capture_video:main"
 calibrate_intrinsic = "camera_calibration_uv.calibrate_intrinsic:main"
 

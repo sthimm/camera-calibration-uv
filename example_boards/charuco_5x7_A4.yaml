@@ -1,0 +1,7 @@
+size: [5, 7]
+# See for other available options
+# https://docs.opencv.org/4.x/de/d67/group__objdetect__aruco.html#ga4f972d4e36e6ac24a376e0ca604cbcf2
+aruco_dict: DICT_4X4_50 
+
+square_length: 0.038 # m
+marker_length: 0.0285 # m 
