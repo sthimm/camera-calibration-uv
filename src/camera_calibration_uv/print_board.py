@@ -1,6 +1,7 @@
 import os
 import argparse
 import cv2
+import matplotlib.pyplot as plt
 
 from .charuco_utils import create_board, draw_board
 
@@ -20,19 +21,21 @@ def calc_fit_size_px(board: cv2.aruco.CharucoBoard, dpi: int = 300) -> tuple:
     width_inch = squares_x * square_length_m * inch_per_meter
     height_inch = squares_y * square_length_m * inch_per_meter
 
-    size_inch = next(
-        ((pw, ph) for pw, ph in PAPER_SIZES_INCH.values() if pw >= width_inch and ph >= height_inch), 
-        None
-    )
+    size_inch = None
+    for name, (pw, ph) in PAPER_SIZES_INCH.items():
+        if pw >= width_inch and ph >= height_inch:
+            size_inch = (pw, ph)
+            print(f'Using {name} {size_inch} inches')
+            break
     if size_inch is None:
         raise ValueError(f"No paper format fits")
     
     width_px, height_px = (int(dim * dpi) for dim in size_inch)
-    return (width_px, height_px)
+    return (width_px, height_px), size_inch
 
 def print_board(args): 
     board = create_board(args.board)
-    size_px = calc_fit_size_px(board, dpi=args.dpi)
+    size_px, size_inch = calc_fit_size_px(board, dpi=args.dpi)
     img = draw_board(
         board=board,
         size_px=size_px,
@@ -40,9 +43,10 @@ def print_board(args):
         border_bits=args.border_bits
     )
 
-    board_img_path = os.path.splitext(args.board)[0] + '.png'
-    cv2.imwrite(board_img_path, img)
-    print(f"Board image saved as {board_img_path}, size: {img.shape[:2]} pixels")
+    base_path, _ = os.path.splitext(args.board)
+    board_file_path = base_path + '.png'
+    cv2.imwrite(board_file_path, img)
+    print(f"Board saved at {board_file_path}, size: {img.shape[:2]} pixels")
 
 def main(): 
     parser = argparse.ArgumentParser(description="Print charuco board to image file")
