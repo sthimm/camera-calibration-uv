@@ -32,7 +32,7 @@ def calibrate_intrinsic(args):
     if not input_vid.isOpened(): 
         raise ValueError('Failed to open video')
     
-    all_img_points, all_obj_points = [], []
+    img_points, obj_points = [], []
     frame_idx = -1
     image_size = None
 
@@ -57,8 +57,8 @@ def calibrate_intrinsic(args):
             if len(charuco_ids) >= args.min_corners: 
                 try: 
                     frame_obj_points, frame_img_points = board.matchImagePoints(charuco_corners, charuco_ids)
-                    all_img_points.append(frame_img_points)
-                    all_obj_points.append(frame_obj_points)
+                    img_points.append(frame_img_points)
+                    obj_points.append(frame_obj_points)
                     print(f'Frame {frame_idx}: Found {len(charuco_ids)} corners')
                 except cv2.error as e: 
                     print(f'Point matching failed: {e}')
@@ -71,13 +71,13 @@ def calibrate_intrinsic(args):
     input_vid.release() 
     cv2.destroyAllWindows() 
 
-    num_points = sum(len(p) for p in all_img_points)
-    print(f'Using {len(all_img_points)} frames with {num_points} matched points for calibration')
+    num_points = sum(len(p) for p in img_points)
+    print(f'Using {len(img_points)} frames with {num_points} matched points for calibration')
 
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 1e-6)
     rms, camera_matrix, dist_coefs, _rvecs, _tvecs = cv2.calibrateCamera(
-        all_obj_points, 
-        all_img_points, 
+        obj_points, 
+        img_points, 
         image_size,
         cameraMatrix=None,
         distCoeffs=None,
