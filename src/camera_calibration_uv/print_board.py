@@ -12,7 +12,7 @@ PAPER_SIZES_INCH = {
     'A0':  (33.11, 46.81)
 }
 
-def calc_size(board: cv2.aruco.CharucoBoard, dpi: int = 300) -> tuple: 
+def calc_fit_size_px(board: cv2.aruco.CharucoBoard, dpi: int = 300) -> tuple: 
     squares_x, squares_y = board.getChessboardSize()
     square_length_m = board.getSquareLength()
 
@@ -32,7 +32,7 @@ def calc_size(board: cv2.aruco.CharucoBoard, dpi: int = 300) -> tuple:
 
 def print_board(args): 
     board = create_board(args.board)
-    size_px = calc_size(board, dpi=args.dpi)
+    size_px = calc_fit_size_px(board, dpi=args.dpi)
     img = draw_board(
         board=board,
         size_px=size_px,
