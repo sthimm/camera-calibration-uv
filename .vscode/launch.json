@@ -12,5 +12,16 @@
             "console": "integratedTerminal",
             "args": []
         },
+        {
+            "name": "Calibrate Intrinsic",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/camera_calibration_uv/calibrate_intrinsic.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--video", "${workspaceFolder}/data/video.mp4",
+                "--output", "${workspaceFolder}/data/intrinsic.json"
+            ]
+        }, 
     ]
 }

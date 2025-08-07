@@ -2,7 +2,7 @@ import argparse
 import os
 import cv2
 
-def main(args): 
+def capture_video(args): 
     cap = cv2.VideoCapture(0)
     if not cap.isOpened(): 
         raise ValueError('Failed to open camera')
@@ -34,12 +34,13 @@ def main(args):
     cap.release() 
     writer.release() 
     cv2.destroyAllWindows() 
+    print(f'Saved video containing {num_frames} frames to {args.output_path}')
 
-if __name__ == '__main__': 
+def main(): 
     parser = argparse.ArgumentParser() 
     parser.add_argument('--output-path', type=str, default='output/output.mp4', help='Path to output dir')
     parser.add_argument('--fps', type=int, default=20, help='Acquisition framerate')
     parser.add_argument('--duration', type=int, default=None, help='Optional video length (seconds)')
     args = parser.parse_args() 
 
-    main(args)
+    capture_video(args)

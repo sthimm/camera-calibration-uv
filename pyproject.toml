@@ -13,7 +13,8 @@ dependencies = [
 ]
 
 [project.scripts]
-calibrate = "camera_calibration_uv:main"
+capture_video = "camera_calibration_uv.capture_video:main"
+calibrate_intrinsic = "camera_calibration_uv.calibrate_intrinsic:main"
 
 [build-system]
 requires = ["hatchling"]
